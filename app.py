@@ -1,5 +1,6 @@
 # Dependencies
 # ----------------------------------  https://github.com/pallets/flask-sqlalchemy/issues/98
+from flask_ngrok import run_with_ngrok
 from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Numeric
@@ -7,6 +8,7 @@ from flask_marshmallow import Marshmallow
 import simplejson
 
 app = Flask(__name__)
+run_with_ngrok(app)
 
 ENV = 'prod'
 
@@ -160,7 +162,7 @@ class Election(db.Model):
         self.acs_population_total = acs_population_total 
         self.acs_votingagepopulation_total = acs_votingagepopulation_total
 
-class ElectionSchema(ma.ModelSchema):
+class ElectionSchema(ModelSchema):
     class Meta:
         model = Election
         json_module = simplejson
